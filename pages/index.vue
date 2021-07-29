@@ -9,15 +9,16 @@
         lg4
         pa-2
       >
-        <swiper :ref="`swiper-${index}`" class="swiper" :options="item.swiperOption" @slideChange="swipeHandler(item, index)">
+        <swiper :ref="`swiper-${index}`" class="swiper" :options="item.swiperOption" @slideChange="startAutoplay(index)">
           <swiper-slide
             v-for="thumbnail in item.thumbnails"
             :key="thumbnail.id"
           >
-            <v-img
+            <img :src="thumbnail.src" alt="">
+            <!-- <v-img
               :lazy-src="thumbnail.lazySrc"
               :src="thumbnail.src"
-            ></v-img>
+            ></v-img> -->
           </swiper-slide>
           <div slot="pagination" class="swiper-pagination"></div>
         </swiper>
@@ -34,17 +35,12 @@ export default {
         pagination: {
           el: '.swiper-pagination',
           type: 'progressbar'
-        }
-      },
-      swiperOptionAutoplay: {
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false
         },
-        pagination: {
-          el: '.swiper-pagination',
-          type: 'progressbar'
-        }
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false
+        },
+        loop: true
       },
       items: [
         {
@@ -158,15 +154,19 @@ export default {
         swiperOption: JSON.parse(JSON.stringify(this.swiperOption))
       }
     })
+
+    this.$nextTick(() => {
+      this.stopAllSwiper()
+    })
   },
   methods: {
-    swipeHandler(item, index) {
-      this.getItems.map((v) => {
-        v.swiperOption = JSON.parse(JSON.stringify(this.swiperOption))
-        return v
+    stopAllSwiper() {
+      this.getItems.forEach((item, index) => {
+        this.$refs[`swiper-${index}`][0].$swiper.autoplay.stop()
       })
-
-      item.swiperOption = JSON.parse(JSON.stringify(this.swiperOptionAutoplay))
+    },
+    startAutoplay(index) {
+      this.stopAllSwiper()
       this.$refs[`swiper-${index}`][0].$swiper.autoplay.start()
     }
   }
