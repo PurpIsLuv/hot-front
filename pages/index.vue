@@ -2,33 +2,25 @@
   <section class="page--index">
     <v-row wrap>
       <v-flex
-        v-for="i in 10"
-        :key="i"
+        v-for="(item, index) in getItems"
+        :key="item.id"
         xs12
         sm6
         lg4
-        px-2
-        py-1
+        pa-2
       >
-        <v-carousel
-          v-model="activeSlide"
-          :touch="touchOption"
-          continuous
-          show-arrows-on-hover
-          hide-delimiter-background
-          delimiter-icon="mdi-minus"
-          height="300"
-        >
-          <v-carousel-item
-            v-for="n in 5"
-            :key="n"
+        <swiper :ref="`swiper-${index}`" class="swiper" :options="item.swiperOption" @slideChange="swipeHandler(item, index)">
+          <swiper-slide
+            v-for="thumbnail in item.thumbnails"
+            :key="thumbnail.id"
           >
             <v-img
-              lazy-src="https://picsum.photos/id/11/10/6"
-              src="https://picsum.photos/id/11/500/300"
+              :lazy-src="thumbnail.lazySrc"
+              :src="thumbnail.src"
             ></v-img>
-          </v-carousel-item>
-        </v-carousel>
+          </swiper-slide>
+          <div slot="pagination" class="swiper-pagination"></div>
+        </swiper>
       </v-flex>
     </v-row>
   </section>
@@ -38,23 +30,144 @@
 export default {
   data() {
     return {
-      activeSlide: 0,
-      slides: [
-        'First',
-        'Second',
-        'Third',
-        'Fourth',
-        'Fifth',
+      swiperOption: {
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'progressbar'
+        }
+      },
+      swiperOptionAutoplay: {
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          type: 'progressbar'
+        }
+      },
+      items: [
+        {
+          id: 1,
+          thumbnails: [
+            {
+              id: 1,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 2,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 3,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            }
+          ]
+        },
+        {
+          id: 2,
+          thumbnails: [
+            {
+              id: 1,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 2,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 3,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            }
+          ]
+        },
+        {
+          id: 3,
+          thumbnails: [
+            {
+              id: 1,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 2,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 3,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            }
+          ]
+        },
+        {
+          id: 4,
+          thumbnails: [
+            {
+              id: 1,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 2,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 3,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            }
+          ]
+        },
+        {
+          id: 5,
+          thumbnails: [
+            {
+              id: 1,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 2,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            },
+            {
+              id: 3,
+              src: 'https://picsum.photos/id/11/500/300',
+              lazySrc: 'https://picsum.photos/id/11/10/6'
+            }
+          ]
+        }
       ],
-      touchOption: {
-        left: () => this.swipe(1),
-        right: () => this.swipe(-1)
-      }
+      getItems: []
     }
   },
+  mounted() {
+    this.getItems = this.items.map(item => {
+      return {
+        ...item,
+        swiperOption: JSON.parse(JSON.stringify(this.swiperOption))
+      }
+    })
+  },
   methods: {
-    swipe(value) {
-      this.activeSlide += value
+    swipeHandler(item, index) {
+      this.getItems.map((v) => {
+        v.swiperOption = JSON.parse(JSON.stringify(this.swiperOption))
+        return v
+      })
+
+      item.swiperOption = JSON.parse(JSON.stringify(this.swiperOptionAutoplay))
+      this.$refs[`swiper-${index}`][0].$swiper.autoplay.start()
     }
   }
 }
