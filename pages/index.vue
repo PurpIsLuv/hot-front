@@ -9,9 +9,9 @@
         lg4
         pa-2
       >
-        <prn-video
+        <prn-preview
           :item="item"
-        ></prn-video>
+        ></prn-preview>
       </v-flex>
     </v-row>
   </section>

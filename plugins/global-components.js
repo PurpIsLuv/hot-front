@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import PrnVideo from '@/components/common/PrnVideo'
+import PrnPreview from '@/components/common/PrnPreview'
 
-const components = { PrnVideo }
+const components = { PrnPreview }
 
 Object.entries(components).forEach(([name, component]) => {
   Vue.component(name, component)

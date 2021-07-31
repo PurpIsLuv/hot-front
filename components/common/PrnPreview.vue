@@ -1,15 +1,9 @@
 <template>
-  <div class="prn-video">
-    <div v-if="played">
-      <vue-core-video-player
-        src="https://media.vued.vanthink.cn/sparkle_your_name_am360p.mp4"
-      ></vue-core-video-player>
-    </div>
-    <div
-      v-else
-      @mouseenter="startAutoplay"
-      @mouseleave="stopAutoplay"
-    >
+  <div
+    class="prn-video elevation-4"
+    @mouseenter="startAutoplay"
+    @mouseleave="stopAutoplay"
+  >
       <swiper
         ref="swiper"
         class="swiper"
@@ -21,13 +15,13 @@
         >
           <div class="swiper-slide__wrapper">
             <div class="swiper-slide__play">
-              <div class="vcp-layer play-pause-layer">
-                <a class="btn-control btn-play" @click="play">
+              <nuxt-link class="vcp-layer play-pause-layer" :to="{ name: 'video', query: { id: item.id } }" target="_blank">
+                <a class="btn-control btn-play">
                   <svg xmlns="http://www.w3.org/2000/svg" width="31" height="35" viewBox="0 0 41 47">
                     <path d="M23.5,0,47,41H0Z" transform="translate(41) rotate(90)" fill="#ff6060"></path>
                   </svg>
                 </a>
-              </div>
+              </nuxt-link>
             </div>
             <div class="swiper-slide__image">
               <img :src="thumbnail.src" alt="" width="100%">
@@ -37,7 +31,6 @@
         <div ref="pagination" slot="pagination" class="swiper-pagination"></div>
       </swiper>
     </div>
-  </div>
 </template>
 
 <script>
@@ -62,8 +55,7 @@ export default {
           disableOnInteraction: false
         },
         loop: true
-      },
-      played: false
+      }
     }
   },
   mounted() {
@@ -81,12 +73,6 @@ export default {
     },
     stopAutoplay() {
       this.$refs?.swiper?.$swiper?.autoplay?.stop()
-    },
-    play() {
-      this.played = true
-    },
-    endedVideo() {
-      this.played = false
     }
   }
 }
@@ -103,6 +89,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: red;
   }
   &__image {
     width: 434px;
