@@ -10,7 +10,11 @@
     </client-only>
     <section>
       <div class="video-section--main">
-        <h2>Название видео</h2>
+        <v-row class="ma-0" align="center">
+          <h2>Название видео</h2>
+          <v-spacer></v-spacer>
+          <a href="#" class="text-caption link--default">Ссылка на оригинал</a>
+        </v-row>
         <div class="text-subtitle-2">Описание:</div>
         <div class="text-body-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quae non quaerat natus, dolorem illum voluptatem ducimus ipsum distinctio aliquid dignissimos, fuga harum beatae temporibus rerum? Obcaecati ducimus qui perferendis!</div>
       </div>
@@ -51,14 +55,6 @@
               </v-card-title>
               <v-card-subtitle>Возраст: 23</v-card-subtitle>
             </v-card>
-            <!-- <div class="text-body-2">Имя: Amater</div>
-            <div class="text-body-2">Возраст: 23</div>
-            <div class="model-image__wrapper">
-              <img
-                src="https://img-fotki.yandex.ru/get/4702/127908635.210e/0_1edc6c_176757d5_orig.jpg"
-                width="100%"
-              >
-            </div> -->
           </v-flex>
         </v-row>
       </div>
@@ -97,5 +93,9 @@ export default {
 .model-image__wrapper {
   width: 108px;
   height: 142px;
+}
+.link--default {
+  color: #ff6060;
+  text-decoration: none;
 }
 </style>
