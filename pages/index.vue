@@ -7,6 +7,7 @@
         xs12
         sm6
         lg4
+        xl3
         pa-2
       >
         <prn-preview
@@ -14,6 +15,14 @@
         ></prn-preview>
       </v-flex>
     </v-row>
+    <section>
+      <v-pagination
+        v-model="page"
+        class="my-4"
+        color="#ff6060"
+        :length="15"
+      ></v-pagination>
+    </section>
   </section>
 </template>
 
@@ -21,6 +30,7 @@
 export default {
   data() {
     return {
+      page: 1,
       items: [
         {
           id: 1,

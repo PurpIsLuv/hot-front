@@ -4,7 +4,11 @@
     @mouseenter="startAutoplay"
     @mouseleave="stopAutoplay"
   >
-    <div class="prn-video__wrapper">
+    <nuxt-link
+      class="prn-video__wrapper"
+      :to="{ name: 'video', query: { id: item.id } }"
+      target="_blank"
+    >
       <swiper
         ref="swiper"
         class="swiper elevation-4"
@@ -14,23 +18,20 @@
           v-for="thumbnail in item.thumbnails"
           :key="thumbnail.id"
         >
-          <nuxt-link
+          <div
             class="swiper-slide__wrapper"
-            :to="{ name: 'video', query: { id: item.id } }"
-            target="_blank"
           >
             <div class="swiper-slide__image">
               <img :src="thumbnail.src" alt="" width="100%">
             </div>
-          </nuxt-link>
+          </div>
         </swiper-slide>
         <div ref="pagination" slot="pagination" class="swiper-pagination"></div>
       </swiper>
-      <a
-        class="text-body-2 link--default"
-        @click.prevent="routeToVideo(item.id)"
-      >Название видео</a>
-    </div >
+      <span class="text-body-2 link--default">
+        Название видео
+      </span>
+    </nuxt-link >
   </div>
 </template>
 
@@ -85,7 +86,6 @@ export default {
 <style lang="scss" scoped>
 .prn-video {
   &__wrapper {
-    max-width: 434px;
     margin: 0 auto;
   }
 }
