@@ -47,12 +47,16 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-view-list',
           title: 'Категории',
-          to: '/inspire'
+          to: '/category'
+        },
+        {
+          icon: 'mdi-star',
+          title: 'Порнозвезды',
+          to: '/star'
         }
-      ],
-      title: 'Vuetify.js'
+      ]
     }
   }
 }

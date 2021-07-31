@@ -1,36 +1,37 @@
 <template>
   <div
-    class="prn-video elevation-4"
+    class="prn-video"
     @mouseenter="startAutoplay"
     @mouseleave="stopAutoplay"
   >
+    <div class="prn-video__wrapper">
       <swiper
         ref="swiper"
-        class="swiper"
+        class="swiper elevation-4"
         :options="swiperOption"
       >
         <swiper-slide
           v-for="thumbnail in item.thumbnails"
           :key="thumbnail.id"
         >
-          <div class="swiper-slide__wrapper">
-            <div class="swiper-slide__play">
-              <nuxt-link class="vcp-layer play-pause-layer" :to="{ name: 'video', query: { id: item.id } }" target="_blank">
-                <a class="btn-control btn-play">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="31" height="35" viewBox="0 0 41 47">
-                    <path d="M23.5,0,47,41H0Z" transform="translate(41) rotate(90)" fill="#ff6060"></path>
-                  </svg>
-                </a>
-              </nuxt-link>
-            </div>
+          <nuxt-link
+            class="swiper-slide__wrapper"
+            :to="{ name: 'video', query: { id: item.id } }"
+            target="_blank"
+          >
             <div class="swiper-slide__image">
               <img :src="thumbnail.src" alt="" width="100%">
             </div>
-          </div>
+          </nuxt-link>
         </swiper-slide>
         <div ref="pagination" slot="pagination" class="swiper-pagination"></div>
       </swiper>
-    </div>
+      <a
+        class="text-body-2 link--default"
+        @click.prevent="routeToVideo(item.id)"
+      >Название видео</a>
+    </div >
+  </div>
 </template>
 
 <script>
@@ -73,12 +74,21 @@ export default {
     },
     stopAutoplay() {
       this.$refs?.swiper?.$swiper?.autoplay?.stop()
+    },
+    routeToVideo(id) {
+      this.$router.push({ name: 'video', query: { id } })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.prn-video {
+  &__wrapper {
+    max-width: 434px;
+    margin: 0 auto;
+  }
+}
 .swiper-slide {
   &__wrapper {
     position: relative;

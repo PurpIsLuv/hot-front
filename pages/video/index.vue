@@ -94,8 +94,4 @@ export default {
   width: 108px;
   height: 142px;
 }
-.link--default {
-  color: #ff6060;
-  text-decoration: none;
-}
 </style>
