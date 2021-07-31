@@ -1,6 +1,7 @@
 <template>
   <section class="page--index">
-    <v-row wrap>
+    <h4 class="text-h4 mx-2">Новое порно видео</h4>
+    <v-row wrap class="mt-2 mx-0">
       <v-flex
         v-for="(item) in items"
         :key="item.id"
