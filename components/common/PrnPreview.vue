@@ -22,7 +22,7 @@
             class="swiper-slide__wrapper"
           >
             <div class="swiper-slide__image">
-              <img :src="thumbnail.src" alt="" width="100%">
+              <img :src="thumbnail.src" alt="" height="100%">
             </div>
           </div>
         </swiper-slide>
@@ -93,16 +93,8 @@ export default {
   &__wrapper {
     position: relative;
   }
-  &__play {
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
   &__image {
-    width: 434px;
-    height: 252px;
+    height: 230px;
   }
 }
 </style>

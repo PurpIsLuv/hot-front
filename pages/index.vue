@@ -9,7 +9,8 @@
         sm6
         lg4
         xl3
-        pa-2
+        px-2
+        py-4
       >
         <prn-preview
           :item="item"

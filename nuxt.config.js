@@ -22,6 +22,10 @@ export default {
     ]
   },
 
+  env: {
+    TARGET_HOST: process.env.TARGET_HOST
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/common.scss'
@@ -31,7 +35,8 @@ export default {
   plugins: [
     { src: '@/plugins/vue-awesome-swiper.js', ssr: true },
     { src: '@/plugins/vue-core-video-player.js', ssr: false },
-    { src: '@/plugins/global-components.js', ssr: true }
+    { src: '@/plugins/global-components.js', ssr: true },
+    { src: '@/plugins/http.js', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,7 +57,9 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.TARGET_HOST
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

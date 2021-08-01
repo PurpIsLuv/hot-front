@@ -1,27 +1,29 @@
 <template>
-  <section class="page--category">
+  <section class="page--star">
     <v-row wrap>
       <v-flex
-        v-for="category in categories"
-        :key="category.id"
+        v-for="n in 12"
+        :key="n"
         xs12
         sm6
-        lg4
+        lg2
         xl3
         pa-2
       >
         <v-card
           class="mx-auto"
-          max-width="400"
-          :to="{ name: 'category-slug', params: { slug: category.slug } }"
+          width="175"
+          height="260"
+          :to="{ name: 'star-id', query: { id: n } }"
         >
           <v-img
             class="white--text align-end"
-            height="200px"
-            :src="category.src"
-            :alt="category.name"
+            width="175"
+            height="260"
+            src="https://krasivosti.pro/uploads/posts/2021-04/1617953264_22-p-koshki-malenkie-milie-24.jpg"
+            alt="Tifany Tattum"
           >
-            <v-card-title>{{ category.name }}</v-card-title>
+            <v-card-title>Tifany Tattum</v-card-title>
           </v-img>
         </v-card>
       </v-flex>
