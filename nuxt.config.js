@@ -73,6 +73,13 @@ export default {
     }
   },
 
+  styleResources: {
+    // your settings here
+    scss: [
+      '~/assets/common.scss'
+    ]
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
