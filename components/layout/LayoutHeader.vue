@@ -37,13 +37,11 @@
         @click.stop="drawer = !drawer"
       />
       <nuxt-link
-        class="text--quicksand text-h4 d-flex"
+        class="layout-header__logo text--raleway d-flex"
         :to="{ name: 'index' }"
-        @mouseenter="toggleMouseHandler(true)"
-        @mouseleave="toggleMouseHandler(false)"
       >
-        <h5 :class="[ isLogoEnter ? 'text--black' : 'link--default']">Sexus</h5>
-        <h5 :class="[ isLogoEnter ? 'link--default' : 'text--black']">.porn</h5>
+        <span>Sexus</span>
+        <span>.porn</span>
       </nuxt-link>
     </v-app-bar>
   </header>
@@ -83,11 +81,34 @@ export default {
     if (this.isLgAndUp) {
       this.drawer = true
     }
-  },
-  methods: {
-    toggleMouseHandler(v) {
-      this.isLogoEnter = v
-    }
   }
 }
 </script>
+
+<style lang="scss">
+.layout-header__logo {
+  font-size: 30px;
+  span {
+    &:nth-child(1) {
+      transition: 0.3s linear;
+      color: #ff6060;
+    }
+    &:nth-child(2) {
+      transition: 0.3s linear;
+      color: #000;
+    }
+  }
+  &:hover {
+    span {
+      &:nth-child(1) {
+        transition: 0.3s linear;
+        color: #000;
+      }
+      &:nth-child(2) {
+        transition: 0.3s linear;
+        color: #ff6060;
+      }
+    }
+  }
+}
+</style>

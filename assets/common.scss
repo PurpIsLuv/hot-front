@@ -1,5 +1,8 @@
+@import url('./variables.scss');
+@import url('./fonts/Raleway/stylesheet.css');
+
 .link--default {
-  color: #ff6060 !important;
+  color: $color--primary !important;
   text-decoration: none !important;
 }
 
@@ -7,8 +10,8 @@ a {
   text-decoration: none !important;
 }
 
-.text--quicksand {
-  font-family: 'Quicksand', sans-serif;
+.text--raleway {
+  font-family: 'Raleway' !important;
 }
 
 .text--black {

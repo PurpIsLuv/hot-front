@@ -21,7 +21,7 @@
         v-model="page"
         class="my-4"
         color="#ff6060"
-        :length="15"
+        :length="2"
       ></v-pagination>
     </section>
   </section>
