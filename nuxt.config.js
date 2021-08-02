@@ -23,7 +23,8 @@ export default {
   },
 
   env: {
-    TARGET_HOST: process.env.TARGET_HOST
+    TARGET_HOST: process.env.TARGET_HOST,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

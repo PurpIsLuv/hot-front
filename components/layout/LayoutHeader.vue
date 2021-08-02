@@ -68,6 +68,21 @@ export default {
           icon: 'mdi-star',
           title: 'Порнозвезды',
           to: '/star'
+        },
+        {
+          icon: 'mdi-cog-outline',
+          title: 'Админка-Категории',
+          to: '/admin/category/list'
+        },
+        {
+          icon: 'mdi-cog-outline',
+          title: 'Админка-Порнозвезды',
+          to: '/admin/star/list'
+        },
+        {
+          icon: 'mdi-cog-outline',
+          title: 'Админка-Видео',
+          to: '/admin/video/list'
         }
       ]
     }

@@ -74,7 +74,7 @@
           class="mx-auto"
           width="175"
           height="260"
-          :to="{ name: 'star-id', query: { id: n } }"
+          :to="{ name: 'star-id', params: { id: n } }"
         >
           <v-img
             class="white--text align-end"

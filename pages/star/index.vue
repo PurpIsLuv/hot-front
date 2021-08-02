@@ -48,6 +48,14 @@
         </v-card>
       </v-flex>
     </v-row>
+    <section>
+      <v-pagination
+        v-model="page"
+        class="my-4"
+        color="#ff6060"
+        :length="2"
+      ></v-pagination>
+    </section>
   </section>
 </template>
 
@@ -58,7 +66,8 @@ export default {
   name: 'Category',
   data() {
     return {
-      letter: ''
+      letter: '',
+      page: 1
     }
   },
   computed: {
