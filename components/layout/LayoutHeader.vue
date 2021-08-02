@@ -88,6 +88,7 @@ export default {
 <style lang="scss">
 .layout-header__logo {
   font-size: 30px;
+  cursor: pointer;
   span {
     &:nth-child(1) {
       transition: 0.3s linear;

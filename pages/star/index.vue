@@ -1,5 +1,25 @@
 <template>
   <section class="page--star">
+    <v-row wrap class="px-2">
+      <v-btn
+        class="elevation-0 mx-1 my-1"
+        :color="letter === '' ? '#ff6060' : 'default'"
+        small
+        @click.stop="letter = ''"
+      >
+        <span :style="`color: ${ letter === '' ? '#fff' : '#000'}`">All</span>
+      </v-btn>
+      <v-btn
+        v-for="(char, index) in alphavit"
+        :key="index"
+        class="elevation-0 mx-1 my-1"
+        :color="letter === char ? '#ff6060' : 'default'"
+        small
+        @click.stop="letter = char"
+      >
+        <span :style="`color: ${ letter === char ? '#fff' : '#000'}`">{{ char }}</span>
+      </v-btn>
+    </v-row>
     <v-row wrap>
       <v-flex
         v-for="n in 12"
@@ -14,7 +34,7 @@
           class="mx-auto"
           width="175"
           height="260"
-          :to="{ name: 'star-id', query: { id: n } }"
+          :to="{ name: 'star-id', params: { id: n } }"
         >
           <v-img
             class="white--text align-end"
@@ -36,12 +56,14 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Category',
-  fetch({ store }) {
-    return store.dispatch('category/fetchCategories')
+  data() {
+    return {
+      letter: ''
+    }
   },
   computed: {
     ...mapState({
-      categories: state => state.category.categories
+      alphavit: state => state.star.alphavit
     })
   }
 }

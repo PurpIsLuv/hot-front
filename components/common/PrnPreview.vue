@@ -85,6 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 .prn-video {
+  max-width: 383px;
   &__wrapper {
     margin: 0 auto;
   }
