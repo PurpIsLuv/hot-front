@@ -1,15 +1,15 @@
 export default {
-  fetchCategories({ commit }, payload) {
+  fetchStars({ commit }, payload) {
     return this.$http({
-      url: '/api/category/list',
+      url: '/api/star/list',
       method: 'post',
       data: payload || undefined
     })
       .then((response) => {
         if (response.data.success) {
-          commit('SET_CATEGORIES', response.data.resultCategory)
-          commit('SET_LENGTH', response.data.count)
-          return response.data.result
+          commit('SET_STARS', response.data.resultStar.rows)
+          commit('SET_LENGTH', response.data.resultStar.count)
+          return response.data
         }
         throw response
       })

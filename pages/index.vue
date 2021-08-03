@@ -2,8 +2,8 @@
   <section class="page--index">
 
     <!-- Секция видео -->
-    <h4 class="text-h4 mx-2">Новое порно видео</h4>
-    <v-row wrap class="mt-2 mx-0">
+    <h4 class="text-h4 mx-2">New porno</h4>
+    <v-row wrap class="my-2 mx-0">
       <v-flex
         v-for="(item) in items"
         :key="item.id"
@@ -19,18 +19,16 @@
         ></prn-preview>
       </v-flex>
     </v-row>
-    <section>
-      <v-pagination
-        v-model="page"
-        class="my-4"
-        color="#ff6060"
-        :length="2"
-      ></v-pagination>
-    </section>
+    <v-pagination
+      v-model="page"
+      class="my-4"
+      color="#ff6060"
+      :length="2"
+    ></v-pagination>
 
     <!-- Секция категорий -->
-    <h4 class="text-h4 mx-2">Категорий</h4>
-    <v-row wrap class="mt-2 mx-0">
+    <h4 class="text-h4 mx-2">Categories</h4>
+    <v-row wrap class="my-2 mx-0">
       <v-flex
         v-for="category in categories"
         :key="category.id"
@@ -49,21 +47,27 @@
           <v-img
             class="white--text align-end"
             height="200px"
-            :src="category.src"
+            :src="category.src || 'https://via.placeholder.com/400'"
             :alt="category.name"
           >
-            <v-card-title>{{ category.name }}</v-card-title>
+            <v-card-title color="red">{{ category.name }}</v-card-title>
           </v-img>
         </v-card>
       </v-flex>
     </v-row>
+    <v-pagination
+      v-model="categoryPage"
+      class="my-4"
+      color="#ff6060"
+      :length="getCategoriesLength"
+    ></v-pagination>
 
     <!-- Секция звезд -->
-    <h4 class="text-h4 mx-2 mt-2">Порнозвезды</h4>
-    <v-row wrap class="mt-2 mx-0">
+    <h4 class="text-h4 mx-2 mt-2">Pornstars</h4>
+    <v-row wrap class="my-2 mx-0">
       <v-flex
-        v-for="n in 12"
-        :key="n"
+        v-for="star in stars"
+        :key="star.id"
         xs6
         sm4
         lg3
@@ -74,20 +78,26 @@
           class="mx-auto"
           width="175"
           height="260"
-          :to="{ name: 'star-id', params: { id: n } }"
+          :to="{ name: 'star-id', params: { id: star.id } }"
         >
           <v-img
             class="white--text align-end"
             width="175"
             height="260"
-            src="https://krasivosti.pro/uploads/posts/2021-04/1617953264_22-p-koshki-malenkie-milie-24.jpg"
-            alt="Tifany Tattum"
+            :src="star.src || 'https://via.placeholder.com/300'"
+            :alt="star.name"
           >
-            <v-card-title>Tifany Tattum</v-card-title>
+            <v-card-title>{{ star.name }}</v-card-title>
           </v-img>
         </v-card>
       </v-flex>
     </v-row>
+    <v-pagination
+      v-model="starPage"
+      class="my-4"
+      color="#ff6060"
+      :length="getStarsLength"
+    ></v-pagination>
   </section>
 </template>
 
@@ -97,6 +107,8 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
+      categoryPage: 1,
+      starPage: 1,
       page: 1,
       items: [
         {
@@ -208,12 +220,45 @@ export default {
     }
   },
   fetch({ store }) {
-    return store.dispatch('category/fetchCategories')
+    const promises = [
+      store.dispatch('category/fetchCategories', {
+        itemCount: 9,
+        pageCount: 0
+      }),
+      store.dispatch('star/fetchStars', {
+        itemCount: 12,
+        pageCount: 0
+      })
+    ]
+    return Promise.all(promises)
   },
   computed: {
     ...mapState({
-      categories: state => state.category.categories
-    })
+      categories: state => state.category.categories,
+      categoriesLength: state => state.category.length,
+      stars: state => state.star.stars,
+      starsLength: state => state.star.length
+    }),
+    getCategoriesLength() {
+      return Math.ceil(this.categoriesLength / 9)
+    },
+    getStarsLength() {
+      return Math.ceil(this.starsLength / 12)
+    }
+  },
+  watch: {
+    categoryPage(v) {
+      this.$store.dispatch('category/fetchCategories', {
+        itemCount: 9,
+        pageCount: v - 1
+      })
+    },
+    starPage(v) {
+      this.$store.dispatch('star/fetchStars', {
+        itemCount: 12,
+        pageCount: v - 1
+      })
+    }
   }
 }
 </script>

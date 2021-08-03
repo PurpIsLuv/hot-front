@@ -2,7 +2,8 @@ import Actions from './category/actions'
 import Mutations from './category/mutations'
 
 export const state = () => ({
-  categories: []
+  categories: [],
+  length: 0
 })
 
 export const actions = Actions
