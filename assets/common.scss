@@ -1,0 +1,18 @@
+@import './variables.scss';
+
+.link--default {
+  color: $color--primary !important;
+  text-decoration: none !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.text--raleway {
+  font-family: 'Raleway' !important;
+}
+
+.text--black {
+  color: #000;
+}

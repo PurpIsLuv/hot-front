@@ -15,18 +15,29 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', crossorigin: true, href: 'https://fonts.gstatic.com' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap' }
     ]
+  },
+
+  env: {
+    TARGET_HOST: process.env.TARGET_HOST,
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/common.scss'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/vue-awesome-swiper.js', ssr: false },
-    { src: '@/plugins/vueperslides.js', ssr: false }
+    { src: '@/plugins/vue-awesome-swiper.js', ssr: true },
+    { src: '@/plugins/vue-core-video-player.js', ssr: false },
+    { src: '@/plugins/global-components.js', ssr: true },
+    { src: '@/plugins/http.js', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,13 +58,15 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.TARGET_HOST
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -66,6 +79,13 @@ export default {
         }
       }
     }
+  },
+
+  styleResources: {
+    // your settings here
+    scss: [
+      '~/assets/common.scss'
+    ]
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
