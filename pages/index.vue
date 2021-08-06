@@ -5,8 +5,8 @@
     <h4 class="text-h4 mx-2">New porno</h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
-        v-for="(item) in items"
-        :key="item.id"
+        v-for="(video) in videos"
+        :key="video.id"
         xs12
         sm6
         lg4
@@ -15,15 +15,15 @@
         py-4
       >
         <prn-preview
-          :item="item"
+          :item="video"
         ></prn-preview>
       </v-flex>
     </v-row>
     <v-pagination
-      v-model="page"
+      v-model="videoPage"
       class="my-4"
       color="#ff6060"
-      :length="2"
+      :length="getVideosLength"
     ></v-pagination>
 
     <!-- Секция категорий -->
@@ -109,114 +109,7 @@ export default {
     return {
       categoryPage: 1,
       starPage: 1,
-      page: 1,
-      items: [
-        {
-          id: 1,
-          url: 'https://ss-sportexpress.cdnvideo.ru/userfiles/videoreports/60/60790.mp4',
-          thumbnails: [
-            {
-              id: 1,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 2,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 3,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            }
-          ]
-        },
-        {
-          id: 2,
-          url: 'https://ss-sportexpress.cdnvideo.ru/userfiles/videoreports/60/60790.mp4',
-          thumbnails: [
-            {
-              id: 1,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 2,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 3,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            }
-          ]
-        },
-        {
-          id: 3,
-          url: 'https://ss-sportexpress.cdnvideo.ru/userfiles/videoreports/60/60790.mp4',
-          thumbnails: [
-            {
-              id: 1,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 2,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 3,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            }
-          ]
-        },
-        {
-          id: 4,
-          url: 'https://ss-sportexpress.cdnvideo.ru/userfiles/videoreports/60/60790.mp4',
-          thumbnails: [
-            {
-              id: 1,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 2,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 3,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            }
-          ]
-        },
-        {
-          id: 5,
-          url: 'https://ss-sportexpress.cdnvideo.ru/userfiles/videoreports/60/60790.mp4',
-          thumbnails: [
-            {
-              id: 1,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 2,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            },
-            {
-              id: 3,
-              src: 'https://picsum.photos/id/11/500/300',
-              lazySrc: 'https://picsum.photos/id/11/10/6'
-            }
-          ]
-        }
-      ]
+      videoPage: 1,
     }
   },
   fetch({ store }) {
@@ -228,6 +121,10 @@ export default {
       store.dispatch('star/fetchStars', {
         itemCount: 12,
         pageCount: 0
+      }),
+      store.dispatch('video/fetchVideos', {
+        itemCount: 9,
+        pageCount: 0
       })
     ]
     return Promise.all(promises)
@@ -237,13 +134,18 @@ export default {
       categories: state => state.category.categories,
       categoriesLength: state => state.category.length,
       stars: state => state.star.stars,
-      starsLength: state => state.star.length
+      starsLength: state => state.star.length,
+      videos: state => state.video.videos,
+      videosLength: state => state.video.length
     }),
     getCategoriesLength() {
       return Math.ceil(this.categoriesLength / 9)
     },
     getStarsLength() {
       return Math.ceil(this.starsLength / 12)
+    },
+    getVideosLength() {
+      return Math.ceil(this.videosLength / 9)
     }
   },
   watch: {
@@ -256,6 +158,12 @@ export default {
     starPage(v) {
       this.$store.dispatch('star/fetchStars', {
         itemCount: 12,
+        pageCount: v - 1
+      })
+    },
+    videoPage(v) {
+      this.$store.dispatch('video/fetchVideos', {
+        itemCount: 9,
         pageCount: v - 1
       })
     }

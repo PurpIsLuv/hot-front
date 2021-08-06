@@ -11,22 +11,22 @@
     <section>
       <div class="video-section--main">
         <v-row class="ma-0" align="center">
-          <h2>Название видео</h2>
+          <h2>{{ video.name }}</h2>
           <v-spacer></v-spacer>
           <a href="#" class="text-caption link--default">Ссылка на оригинал</a>
         </v-row>
         <div class="text-subtitle-2">Описание:</div>
-        <div class="text-body-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quae non quaerat natus, dolorem illum voluptatem ducimus ipsum distinctio aliquid dignissimos, fuga harum beatae temporibus rerum? Obcaecati ducimus qui perferendis!</div>
+        <div class="text-body-2">{{ video.description }}</div>
       </div>
 
       <div class="vide-section--category">
         <div class="text-subtitle-2">Категории:</div>
         <v-chip
-          v-for="item in items"
-          :key="item.id"
+          v-for="category in video.VideoToCategories"
+          :key="category.id"
           class="mr-2 my-1"
         >
-          {{ item.title }}
+          {{ category.Category.name }}
         </v-chip>
       </div>
 
@@ -34,26 +34,26 @@
         <div class="text-subtitle-2">Модели:</div>
         <v-row wrap class="ma-0">
           <v-flex
-            v-for="n in 5"
-            :key="n"
+            v-for="star in video.VideoToStars"
+            :key="star.id"
             my-2
             xs6
             sm4
             lg3
             xl2
           >
-            <v-card class="mr-2" :to="{ name: 'index' }" ripple>
+            <v-card class="mr-2" :to="{ name: 'star-id', params: { id: star.id } }" ripple>
               <v-card-title>
-                Yan Danver
+                {{ star.Star.name }}
                 <v-spacer></v-spacer>
                 <v-avatar class="mx-0">
                   <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
+                    :src="star.Star.url || 'https://via.placeholder.com/400'"
+                    :alt="star.Star.name"
                   >
                 </v-avatar>
               </v-card-title>
-              <v-card-subtitle>Возраст: 23</v-card-subtitle>
+              <v-card-subtitle>Возраст: {{ star.Star.age }}</v-card-subtitle>
             </v-card>
           </v-flex>
         </v-row>
@@ -63,27 +63,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  data() {
-    return {
-      items: [
-        {
-          id: 1,
-          title: 'teen'
-        },
-        {
-          id: 2,
-          title: 'amater'
-        },
-        {
-          id: 3,
-          title: 'hard'
-        },
-        {
-          id: 4,
-          title: 'blob'
-        }
-      ]
+  fetch({ store, route }) {
+    return store.dispatch('video/fetchVideo', route.query.id)
+  },
+  computed: {
+    ...mapState({
+      video: state => state.video.video
+    }),
+    getVideo() {
+      return this.video.VideoFiles[0].url
     }
   }
 }

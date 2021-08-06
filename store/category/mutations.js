@@ -4,5 +4,8 @@ export default {
   },
   SET_LENGTH(state, length) {
     state.length = length
+  },
+  SET_CATEGORY(state, data) {
+    state.category = data
   }
 }

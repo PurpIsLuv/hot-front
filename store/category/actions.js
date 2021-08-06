@@ -16,5 +16,22 @@ export default {
       .catch((err) => {
         return err
       })
-  }
+  },
+  fetchCategory({ commit }, slug) {
+    return this.$http({
+      url: 'api/category',
+      method: 'get',
+      params: { slug }
+    })
+      .then((response) => {
+        if (response.data) {
+          commit('SET_CATEGORY', response.data)
+          return response
+        }
+        throw response
+      })
+      .catch((err) => {
+        return err
+      })
+  } 
 }

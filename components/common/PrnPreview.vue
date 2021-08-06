@@ -15,14 +15,14 @@
         :options="swiperOption"
       >
         <swiper-slide
-          v-for="thumbnail in item.thumbnails"
-          :key="thumbnail.id"
+          v-for="photo in item.VideoPhotos"
+          :key="photo.id"
         >
           <div
             class="swiper-slide__wrapper"
           >
             <div class="swiper-slide__image">
-              <img :src="thumbnail.src" alt="" height="100%">
+              <img :src="photo.url" alt="" height="100%">
             </div>
           </div>
         </swiper-slide>
