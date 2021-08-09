@@ -1,5 +1,5 @@
 <template>
-  <section class="page--index">
+  <section class="page--search">
 
     <!-- Секция видео -->
     <section v-if="videos && videos.length">
@@ -121,22 +121,24 @@ export default {
       videoPage: 1,
     }
   },
-  fetch({ store }) {
-    const promises = [
+  fetch({ store, route }) {
+    return Promise.all([
       store.dispatch('category/fetchCategories', {
         itemCount: 9,
-        pageCount: 0
+        pageCount: 0,
+        searchString: route.query.value
       }),
       store.dispatch('star/fetchStars', {
         itemCount: 12,
-        pageCount: 0
+        pageCount: 0,
+        searchString: route.query.value
       }),
       store.dispatch('video/fetchVideos', {
         itemCount: 9,
-        pageCount: 0
+        pageCount: 0,
+        searchString: route.query.value
       })
-    ]
-    return Promise.all(promises)
+    ])
   },
   computed: {
     ...mapState({
@@ -161,23 +163,24 @@ export default {
     categoryPage(v) {
       this.$store.dispatch('category/fetchCategories', {
         itemCount: 9,
-        pageCount: v - 1
+        pageCount: v - 1,
+        searchString: this.$route.query.value
       })
     },
     starPage(v) {
       this.$store.dispatch('star/fetchStars', {
         itemCount: 12,
-        pageCount: v - 1
+        pageCount: v - 1,
+        searchString: this.$route.query.value
       })
     },
     videoPage(v) {
       this.$store.dispatch('video/fetchVideos', {
         itemCount: 9,
-        pageCount: v - 1
+        pageCount: v - 1,
+        searchString: this.$route.query.value
       })
     }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

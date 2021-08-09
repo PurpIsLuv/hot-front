@@ -22,12 +22,13 @@
             :src="category.src || 'https://via.placeholder.com/400'"
             :alt="category.name"
           >
-            <v-card-title color="red">{{ category.name }}</v-card-title>
+            <v-card-title class="text--shadow">{{ category.name }}</v-card-title>
           </v-img>
         </v-card>
       </v-flex>
     </v-row>
     <v-pagination
+      v-if="Number.isInteger(getCategoriesLength)"
       v-model="categoryPage"
       class="my-4"
       color="#ff6060"
