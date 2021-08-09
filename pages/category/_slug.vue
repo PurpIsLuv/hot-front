@@ -18,6 +18,7 @@
       </v-flex>
     </v-row>
     <v-pagination
+      v-if="Number.isInteger(getVideosLength)"
       v-model="videoPage"
       class="my-4"
       color="#ff6060"

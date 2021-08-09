@@ -5,6 +5,7 @@
       clipped
       fixed
       app
+      color="#121212"
     >
       <v-list>
         <v-list-item
@@ -30,6 +31,7 @@
       app
       clipped-left
       elevation="1"
+      color="#121212"
     >
       <v-app-bar-nav-icon
         v-if="!isLgAndUp"
@@ -43,6 +45,29 @@
         <span>Sexus</span>
         <span>.porn</span>
       </nuxt-link>
+      <v-row
+        v-if="$vuetify.breakpoint.smAndUp"
+        justify="center"
+      >
+        <v-flex
+          sm8
+          md6
+          lg4
+          xl3
+        >
+          <v-text-field
+            v-model="search"
+            class="elevation-0"
+            label="Search"
+            solo-inverted
+            append-icon="mdi-magnify"
+            color="#ff6060"
+            hide-details
+            @keyup.enter="routeToSearchPage"
+            @click:append="routeToSearchPage"
+          ></v-text-field>
+        </v-flex>
+      </v-row>
     </v-app-bar>
   </header>
 </template>
@@ -56,20 +81,21 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Главная',
+          title: 'Main',
           to: '/'
         },
         {
           icon: 'mdi-view-list',
-          title: 'Категории',
+          title: 'Categories',
           to: '/category'
         },
         {
           icon: 'mdi-star',
-          title: 'Порнозвезды',
+          title: 'Pornstars',
           to: '/star'
         }
-      ]
+      ],
+      search: ''
     }
   },
   computed: {
@@ -80,6 +106,15 @@ export default {
   mounted() {
     if (this.isLgAndUp) {
       this.drawer = true
+    }
+  },
+  methods: {
+    routeToSearchPage() {
+      if (this.search) {
+        const value = this.search
+        this.search = ''
+        this.$router.push({ name: 'search', query: { value } })
+      }
     }
   }
 }
@@ -96,14 +131,14 @@ export default {
     }
     &:nth-child(2) {
       transition: 0.3s linear;
-      color: #000;
+      color: #fff;
     }
   }
   &:hover {
     span {
       &:nth-child(1) {
         transition: 0.3s linear;
-        color: #000;
+        color: #fff;
       }
       &:nth-child(2) {
         transition: 0.3s linear;

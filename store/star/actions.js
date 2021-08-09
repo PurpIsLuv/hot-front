@@ -16,5 +16,21 @@ export default {
       .catch((err) => {
         return err
       })
+  },
+  fetchStar({ commit }, id) {
+    return this.$http({
+      url: '/api/star',
+      method: 'get',
+      params: { id }
+    })
+      .then((response) => {
+        if (response.data) {
+          commit('SET_STAR', response.data)
+        }
+        throw response
+      })
+      .catch((err) => {
+        return err
+      })
   }
 }

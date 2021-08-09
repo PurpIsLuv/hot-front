@@ -3,7 +3,7 @@
     <v-row wrap class="px-2 my-2">
       <v-btn
         class="elevation-0 mx-1 my-1"
-        :color="letter === '' ? '#ff6060' : 'default'"
+        :color="letter === '' ? '#ff6060' : '#fff'"
         small
         @click.stop="letter = ''"
       >
@@ -13,7 +13,7 @@
         v-for="(char, index) in alphavit"
         :key="index"
         class="elevation-0 mx-1 my-1"
-        :color="letter === char ? '#ff6060' : 'default'"
+        :color="letter === char ? '#ff6060' : '#fff'"
         small
         @click.stop="letter = char"
       >
@@ -43,12 +43,13 @@
             :src="star.src || 'https://via.placeholder.com/300'"
             :alt="star.name"
           >
-            <v-card-title>{{ star.name }}</v-card-title>
+            <v-card-title class="text--shadow">{{ star.name }}</v-card-title>
           </v-img>
         </v-card>
       </v-flex>
     </v-row>
     <v-pagination
+      v-if="Number.isInteger(getStarsLength)"
       v-model="starPage"
       class="my-4"
       color="#ff6060"

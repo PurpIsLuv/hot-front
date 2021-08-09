@@ -29,7 +29,7 @@
         <div ref="pagination" slot="pagination" class="swiper-pagination"></div>
       </swiper>
       <span class="text-body-2 link--default">
-        Название видео
+        {{ item.name }}
       </span>
     </nuxt-link >
   </div>
