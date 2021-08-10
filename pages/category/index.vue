@@ -53,6 +53,23 @@ export default {
       pageCount: 0
     })
   },
+  head() {
+    return {
+      title: 'Categories',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Most popular categories'
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: [...this.categories.map(v => v.slug), 'categories']
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       categories: state => state.category.categories,

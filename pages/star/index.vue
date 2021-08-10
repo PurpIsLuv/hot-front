@@ -75,6 +75,23 @@ export default {
       pageCount: 0
     })
   },
+  head() {
+    return {
+      title: 'Pornstars',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Most popular pornstars'
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: [...this.stars.map(v => v.name), 'categories']
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       alphavit: state => state.star.alphavit,

@@ -1,6 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  target: 'server',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Sexus.porn',
@@ -12,7 +14,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'desciption', name: 'description', content: 'Sexus.porn full hd porno' },
-      { hid: 'keywords', name: 'keywords', content: 'porno, xxx, sexus, porn, porno video, porno online, hd, full hd' },
+      { hid: 'keywords', name: 'keywords', content: 'porno,xxx,sexus,porn,porno video,porno online,hd,full hd,free porno' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/icon.ico' },

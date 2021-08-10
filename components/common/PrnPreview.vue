@@ -6,7 +6,7 @@
   >
     <nuxt-link
       class="prn-video__wrapper"
-      :to="{ name: 'video', query: { id: item.id } }"
+      :to="{ name: 'video-id', params: { id: item.id } }"
       target="_blank"
     >
       <swiper

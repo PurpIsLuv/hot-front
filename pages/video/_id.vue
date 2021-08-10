@@ -69,7 +69,27 @@ import { mapState } from 'vuex'
 
 export default {
   fetch({ store, route }) {
-    return store.dispatch('video/fetchVideo', route.query.id)
+    return store.dispatch('video/fetchVideo', route.params.id)
+  },
+  head() {
+    return {
+      title: this.video.name || 'Video',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.video.description || 'porno video'
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: [
+            ...this.video.VideoToCategories.map(v => v.Category.slug),
+            ...this.video.VideoToStars.map(v => v.Star.name)
+          ]
+        }
+      ]
+    }
   },
   computed: {
     ...mapState({
