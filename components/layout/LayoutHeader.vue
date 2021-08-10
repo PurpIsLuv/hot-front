@@ -45,7 +45,7 @@
         <span>Sexus</span>
         <span>.porn</span>
       </nuxt-link>
-      <v-row
+      <!-- <v-row
         v-if="$vuetify.breakpoint.smAndUp"
         justify="center"
       >
@@ -67,7 +67,7 @@
             @click:append="routeToSearchPage"
           ></v-text-field>
         </v-flex>
-      </v-row>
+      </v-row> -->
     </v-app-bar>
   </header>
 </template>
