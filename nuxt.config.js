@@ -39,7 +39,8 @@ export default {
     { src: '@/plugins/vue-awesome-swiper.js', ssr: true },
     { src: '@/plugins/vue-core-video-player.js', ssr: false },
     { src: '@/plugins/global-components.js', ssr: true },
-    { src: '@/plugins/http.js', ssr: true }
+    { src: '@/plugins/http.js', ssr: true },
+    { src: '@/plugins/get-image.js', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

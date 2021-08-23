@@ -40,7 +40,7 @@
             class="white--text align-end"
             width="175"
             height="260"
-            :src="star.src || 'https://via.placeholder.com/300'"
+            :src="$getImage(star.src) || 'https://via.placeholder.com/300'"
             :alt="star.name"
           >
             <v-card-title class="text--shadow">{{ star.name }}</v-card-title>

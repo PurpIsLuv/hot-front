@@ -22,7 +22,7 @@
             class="swiper-slide__wrapper"
           >
             <div class="swiper-slide__image">
-              <img :src="photo.url" alt="" height="100%">
+              <img :src="$getImage(photo.url)" alt="" height="100%">
             </div>
           </div>
         </swiper-slide>

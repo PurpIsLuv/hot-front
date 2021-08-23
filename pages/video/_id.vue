@@ -50,7 +50,7 @@
                 <v-spacer></v-spacer>
                 <v-avatar class="mx-0">
                   <v-img
-                    :src="star.Star.src || 'https://via.placeholder.com/400'"
+                    :src="$getImage(star.Star.src) || 'https://via.placeholder.com/400'"
                     :alt="star.Star.name || video.name || ''"
                   ></v-img>
                 </v-avatar>
