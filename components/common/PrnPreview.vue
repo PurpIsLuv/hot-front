@@ -6,7 +6,7 @@
   >
     <nuxt-link
       class="prn-video__wrapper"
-      :to="{ name: 'video', query: { id: item.id } }"
+      :to="{ name: 'video-id', params: { id: item.id } }"
       target="_blank"
     >
       <swiper
@@ -22,7 +22,7 @@
             class="swiper-slide__wrapper"
           >
             <div class="swiper-slide__image">
-              <img :src="photo.url" alt="" height="100%">
+              <img :src="$getImage(photo.url)" alt="" height="100%">
             </div>
           </div>
         </swiper-slide>

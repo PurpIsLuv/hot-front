@@ -48,6 +48,23 @@ export default {
         })
       })
   },
+  head() {
+    return {
+      title: 'Category ' + this.category.name,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.category.description || this.category.name || ''
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: [this.category.name || undefined, 'porno category', 'porno']
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       category: state => state.category.category,

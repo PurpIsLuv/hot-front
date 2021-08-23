@@ -48,6 +48,23 @@ export default {
     ]
     return Promise.all(promises)
   },
+  head() {
+    return {
+      title: 'Pornstar ' + this.star.name,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.star.description || this.star.name || ''
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.star.name || ''
+        }
+      ]
+    }
+  },
   computed: {
     ...mapState({
       star: state => state.star.star,
