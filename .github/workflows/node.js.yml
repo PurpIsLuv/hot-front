@@ -27,6 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build
-    # - run: npm run start
-    - run: pm2 start
+    - run: docker-compose down
+    # - run: docker image rm hot-front -f
+    - run: cp ./.env.sample ./.env
+    - run: docker build -t hot-front .
+    - run: docker-compose up --build -d
