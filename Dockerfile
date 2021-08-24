@@ -21,7 +21,7 @@
 
 # # start the app
 # CMD [ "npm", "start" ]
-FROM node:11.13.0-alpine
+FROM node:14
 
 # create destination directory
 RUN mkdir -p /usr/src/nuxt-app
