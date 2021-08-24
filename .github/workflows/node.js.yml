@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: docker-compose down
-    # - run: docker image rm hot-front -f
+    - run: docker image rm hot-front -f
     - run: cp ./.env.sample ./.env
     - run: docker build -t hot-front .
     - run: docker-compose up --build -d
