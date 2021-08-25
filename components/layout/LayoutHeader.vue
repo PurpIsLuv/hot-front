@@ -43,7 +43,7 @@
         :to="{ name: 'index' }"
       >
         <span>Sexus</span>
-        <span>.porn</span>
+        <span>.space</span>
       </nuxt-link>
       <!-- <v-row
         v-if="$vuetify.breakpoint.smAndUp"
