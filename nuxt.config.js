@@ -67,11 +67,21 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/robots'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.TARGET_HOST
+  },
+
+  sitemap: {
+    hostname: process.env.TARGET_HOST
+  },
+
+  robots: {
+    UserAgent: '*'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
