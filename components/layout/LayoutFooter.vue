@@ -4,7 +4,7 @@
       <span>Sexus.space</span>
       <v-spacer></v-spacer>
       <span>
-        mail: pr.sexus@gmail.com
+        mail: sexus.prod@gmail.com
       </span>
       <v-spacer></v-spacer>
       <span>&copy; {{ new Date().getFullYear() }}</span>

@@ -41,14 +41,14 @@ export default {
     }
   },
   mounted() {
-    if (!sessionStorage.getItem(AGE_SUCCESS_SESSION)) {
+    if (!localStorage.getItem(AGE_SUCCESS_SESSION)) {
       this.ageSuccess = true
     }
   },
   methods: {
     onAgeSuccess() {
       this.ageSuccess = false
-      sessionStorage.setItem(AGE_SUCCESS_SESSION, true)
+      localStorage.setItem(AGE_SUCCESS_SESSION, true)
     }
   }
 }

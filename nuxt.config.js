@@ -35,7 +35,8 @@ export default {
 
   env: {
     TARGET_HOST: process.env.TARGET_HOST,
-    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+    GOOGLE_ID: process.env.GOOGLE_ID
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -49,7 +50,8 @@ export default {
     { src: '@/plugins/vue-core-video-player.js', ssr: false },
     { src: '@/plugins/global-components.js', ssr: true },
     { src: '@/plugins/http.js', ssr: true },
-    { src: '@/plugins/get-image.js', ssr: true }
+    { src: '@/plugins/get-image.js', ssr: true },
+    { src: '@/plugins/gtag.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
