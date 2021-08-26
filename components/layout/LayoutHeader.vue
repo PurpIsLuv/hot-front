@@ -93,6 +93,16 @@ export default {
           icon: 'mdi-star',
           title: 'Pornstars',
           to: '/star'
+        },
+        {
+          icon: 'mdi-text-box-outline',
+          title: 'Abuse',
+          to: '/abuse'
+        },
+        {
+          icon: 'mdi-handshake-outline',
+          title: 'Help',
+          to: '/help'
         }
       ],
       search: ''

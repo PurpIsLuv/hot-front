@@ -13,13 +13,18 @@
         <v-row class="ma-0" align="center">
           <h2>{{ video.name }}</h2>
           <v-spacer></v-spacer>
-          <a href="#" class="text-caption link--default">Original url</a>
+          <a
+            href="#"
+            class="text-caption link--default"
+          >
+            Original url
+          </a>
         </v-row>
         <div class="text-subtitle-2">Description:</div>
         <div class="text-body-2">{{ video.description }}</div>
       </div>
 
-      <div class="vide-section--category">
+      <div class="video-section--category">
         <div class="text-subtitle-2">Categories:</div>
         <v-chip
           v-for="category in video.VideoToCategories"
@@ -34,7 +39,16 @@
 
       <div class="video-section--model">
         <div class="text-subtitle-2">Pornstars:</div>
-        <v-row wrap class="ma-0">
+        <v-chip
+          v-for="star in video.VideoToStars"
+          :key="star.id"
+          class="mr-2 my-1"
+          :to="{ name: 'star-id', params: { id: star.id } }"
+          target="_blank"
+        >
+          {{ star.Star.name }}
+        </v-chip>
+        <!-- <v-row wrap class="ma-0">
           <v-flex
             v-for="star in video.VideoToStars"
             :key="star.id"
@@ -58,7 +72,7 @@
               <v-card-subtitle>Age: {{ star.Star.age }}</v-card-subtitle>
             </v-card>
           </v-flex>
-        </v-row>
+        </v-row> -->
       </div>
     </section>
   </section>
