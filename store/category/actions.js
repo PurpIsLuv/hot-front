@@ -9,7 +9,7 @@ export default {
         if (response.data.success) {
           commit('SET_CATEGORIES', response.data.resultCategory)
           commit('SET_LENGTH', response.data.count)
-          return response.data.result
+          return response.data
         }
         throw response
       })

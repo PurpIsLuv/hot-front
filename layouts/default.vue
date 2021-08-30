@@ -31,9 +31,10 @@
 <script>
 import LayoutFooter from '@/components/layout/LayoutFooter.vue'
 import LayoutHeader from '@/components/layout/LayoutHeader.vue'
-import { AGE_SUCCESS_SESSION } from '~/utils/const'
+import { AGE_SUCCESS_SESSION, ADMIN_SUCCESS_SESSION } from '~/utils/const'
 
 export default {
+  name: 'Default',
   components: { LayoutFooter, LayoutHeader },
   data() {
     return {
@@ -41,9 +42,15 @@ export default {
     }
   },
   mounted() {
-    if (!localStorage.getItem(AGE_SUCCESS_SESSION)) {
-      this.ageSuccess = true
-    }
+    this.$nextTick(() => {
+      if (!localStorage.getItem(AGE_SUCCESS_SESSION)) {
+        this.ageSuccess = true
+      }
+
+      if (localStorage.getItem(ADMIN_SUCCESS_SESSION)) {
+        this.$store.commit('menu/SET_ADMIN_MENU')
+      }
+    })
   },
   methods: {
     onAgeSuccess() {

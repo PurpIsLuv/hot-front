@@ -1,0 +1,268 @@
+<template>
+  <section class="admin-video-item">
+    <v-card>
+      <v-card-title>
+        {{ isEdit ? 'Изменить' : 'Создать'}}
+      </v-card-title>
+      <v-divider></v-divider>
+      <v-card-text>
+        <v-form ref="form">
+          <v-row wrap class="my-2 mx-0">
+            <v-flex xs12 xl6 pa-2>
+              <v-text-field
+                v-model="name"
+                label="Название"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 xl6 pa-2>
+              <v-text-field
+                v-model="originalUrl"
+                label="Оригинальная ссылка"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 xl6 pa-2>
+              <v-autocomplete
+                v-model="currentCategories"
+                label="Категории"
+                :items="categories"
+                item-value="id"
+                item-text="name"
+                multiple
+                chips
+                small-chips
+                :search-input.sync="categorySearch"
+              ></v-autocomplete>
+            </v-flex>
+            <v-flex xs12 xl6 pa-2>
+              <v-autocomplete
+                v-model="currentStars"
+                label="Порнозвезды"
+                :items="stars"
+                item-value="id"
+                item-text="name"
+                multiple
+                chips
+                small-chips
+                :search-input.sync="starSearch"
+              ></v-autocomplete>
+            </v-flex>
+            <v-flex xs12 pa-2>
+              <v-textarea
+                v-model="description"
+                label="Описание"
+              ></v-textarea>
+            </v-flex>
+            <v-flex xs12 pa-2>
+              <v-btn
+                color="default"
+                class="text-none"
+                depressed
+                :loading="imageLoading"
+                @click="$refs.imageUpload.click()"
+              >
+                <v-icon left>mdi-cloud-upload</v-icon>
+                <span>Загрузить фото</span>
+              </v-btn>
+              <input
+                ref="imageUpload"
+                class="d-none"
+                type="file"
+                accept="image/*"
+                @change="onImageChanged"
+              >
+            </v-flex>
+            <v-flex
+              v-if="VideoPhotos"
+              xs12
+              pa-2
+            >
+              <v-card
+                v-for="(image, index) in VideoPhotos"
+                :key="index"
+                elevation="0"
+              >
+                <v-row class="my-2 mx-0">
+                  <v-flex sm6>
+                    <v-img
+                      :src="$getImage(image.url)"
+                      height="200"
+                    ></v-img>
+                  </v-flex>
+                  <v-flex
+                    sm6
+                    class="d-flex align-center justify-center"
+                  >
+                    <v-btn
+                      small
+                      @click="deleteImage(index)"
+                    >Удалить</v-btn>
+                  </v-flex>
+                </v-row>
+              </v-card>
+            </v-flex>
+            <v-flex xs12 pa-2>
+              <v-btn
+                color="default"
+                class="text-none"
+                depressed
+                @click="addVideo"
+              >
+                <v-icon left>mdi-cloud-upload</v-icon>
+                <span>Загрузить видео</span>
+              </v-btn>
+            </v-flex>
+            <v-flex
+              v-for="(video, index) in VideoFiles" :key="index"
+              xs12
+              pa-2
+            >
+              <v-row class="my-2 mx-0">
+                <v-flex sm6 class="pr-1">
+                  <v-text-field
+                    :value="video.url"
+                    label="URL"
+                    @input="(value) => $store.commit('video/SET_VIDEO_URL', { index, value })"
+                    @change="(value) => onChangeUrl(index, value)"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex sm6 class="pl-1">
+                  <v-select
+                    :value="video.resolution"
+                    :items="['240', '360', '480', '720', '1080']"
+                    @input="(value) => $store.commit('video/SET_VIDEO_RESOLUTION', { index, value })"
+                  ></v-select>
+                </v-flex>
+              </v-row>
+            </v-flex>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </section>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  async asyncData({ route, store }) {
+    if (route.params.item !== '0') {
+      const videoResponse = await store.dispatch('video/fetchVideo', route.params.item)
+      const categoryList = videoResponse.data.VideoToCategories.map((category) => {
+        return {
+          id: category.id,
+          ...category.Category
+        }
+      })
+      store.commit('category/SET_CATEGORIES', categoryList)
+      const currentCategories = categoryList.map(category => category.id)
+      const starList = videoResponse.data.VideoToStars.map((star) => {
+        return {
+          id: star.id,
+          ...star.Star
+        }
+      })
+      store.commit('star/SET_STARS', starList)
+      const currentStars = starList.map(star => star.id)
+
+      return {
+        ...videoResponse.data,
+        currentCategories,
+        currentStars
+      }
+    } else {
+      await store.dispatch('category/fetchCategories', {
+        itemCount: 9,
+        pageCount: 0
+      })
+      await store.dispatch('star/fetchStars', {})
+
+      return {
+        name: '',
+        originalUrl: '',
+        description: '',
+        currentCategories: [],
+        currentStars: []
+      }
+    }
+  },
+  data() {
+    return {
+      categorySearch: null,
+      starSearch: null,
+      imageLoading: false,
+      videoLoading: false
+    }
+  },
+  computed: {
+    ...mapState({
+      video: state => state.video.video,
+      stars: state => state.star.stars,
+      categories: state => state.category.categories
+    }),
+    isEdit() {
+      return this.$route.params.item !== '0'
+    }
+  },
+  watch: {
+    categorySearch(v) {
+      this.$store.dispatch('category/fetchCategories', {
+        searchString: v || undefined
+      })
+    },
+    starSearch(v) {
+      this.$store.dispatch('star/fetchStars', {
+        searchString: v || undefined
+      })
+    }
+  },
+  methods: {
+    async onImageChanged(e) {
+      this.imageLoading = true
+      const image = e.target.files[0]
+      const formData = new FormData()
+      formData.append('file', image)
+
+      try {
+        const response = await this.$axios.post('api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+
+        this.$store.commit('video/ADD_IMAGE', {
+          url: response.data.url
+        })
+      } catch (error) {
+        this.imageLoading = false
+      }
+
+      this.imageLoading = false
+      formData.delete('file')
+    },
+    deleteImage(index) {
+      this.$store.commit('video/DELETE_IMAGE', index)
+    },
+    addVideo() {
+      this.$store.commit('video/ADD_VIDEO')
+    },
+    async onChangeUrl(index, value) {
+      if (value && (value.includes('https') || value.includes('http'))) {
+        try {
+          const response = await this.$http({
+            method: 'post',
+            url: 'api/upload/link',
+            data: {
+              url: value
+            }
+          })
+
+          this.$store.commit('video/SET_VIDEO_URL', { index, value: response.data.url })
+        } catch (error) {
+          this.$store.commit('video/SET_VIDEO_URL', { index, value: '' })
+        }
+      }
+    }
+  }
+}
+</script>

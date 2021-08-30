@@ -73,42 +73,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
       drawer: false,
       isLogoEnter: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Main',
-          to: '/'
-        },
-        {
-          icon: 'mdi-view-list',
-          title: 'Categories',
-          to: '/category'
-        },
-        {
-          icon: 'mdi-star',
-          title: 'Pornstars',
-          to: '/star'
-        },
-        {
-          icon: 'mdi-text-box-outline',
-          title: 'Abuse',
-          to: '/abuse'
-        },
-        {
-          icon: 'mdi-handshake-outline',
-          title: 'Help',
-          to: '/help'
-        }
-      ],
       search: ''
     }
   },
   computed: {
+    ...mapState({
+      items: state => state.menu.items
+    }),
     isLgAndUp() {
       return this.$vuetify.breakpoint.lgAndUp
     }
