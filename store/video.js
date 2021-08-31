@@ -3,7 +3,11 @@ import Mutations from './video/mutations'
 
 export const state = () => ({
   videos: [],
-  length: 0
+  length: 0,
+  video: {
+    VideoPhotos: [],
+    VideoFiles: []
+  }
 })
 
 export const actions = Actions

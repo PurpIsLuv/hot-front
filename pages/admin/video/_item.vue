@@ -24,12 +24,14 @@
               <v-autocomplete
                 v-model="currentCategories"
                 label="Категории"
-                :items="categories"
+                :items="getCategoryList"
                 item-value="id"
                 item-text="name"
                 multiple
                 chips
                 small-chips
+                deletable-chips
+                return-object
                 :search-input.sync="categorySearch"
               ></v-autocomplete>
             </v-flex>
@@ -37,12 +39,14 @@
               <v-autocomplete
                 v-model="currentStars"
                 label="Порнозвезды"
-                :items="stars"
+                :items="getStarList"
                 item-value="id"
                 item-text="name"
                 multiple
                 chips
                 small-chips
+                deletable-chips
+                return-object
                 :search-input.sync="starSearch"
               ></v-autocomplete>
             </v-flex>
@@ -72,12 +76,12 @@
               >
             </v-flex>
             <v-flex
-              v-if="VideoPhotos"
+              v-if="video.VideoPhotos"
               xs12
               pa-2
             >
               <v-card
-                v-for="(image, index) in VideoPhotos"
+                v-for="(image, index) in video.VideoPhotos"
                 :key="index"
                 elevation="0"
               >
@@ -95,7 +99,9 @@
                     <v-btn
                       small
                       @click="deleteImage(index)"
-                    >Удалить</v-btn>
+                    >
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
                   </v-flex>
                 </v-row>
               </v-card>
@@ -112,12 +118,14 @@
               </v-btn>
             </v-flex>
             <v-flex
-              v-for="(video, index) in VideoFiles" :key="index"
+              v-for="(video, index) in video.VideoFiles" :key="index"
               xs12
               pa-2
             >
-              <v-row class="my-2 mx-0">
-                <v-flex sm6 class="pr-1">
+              <v-row
+                class="my-2 mx-0"
+              >
+                <v-flex sm5 class="pr-1">
                   <v-text-field
                     :value="video.url"
                     label="URL"
@@ -125,18 +133,33 @@
                     @change="(value) => onChangeUrl(index, value)"
                   ></v-text-field>
                 </v-flex>
-                <v-flex sm6 class="pl-1">
+                <v-flex sm5 class="px-1">
                   <v-select
                     :value="video.resolution"
                     :items="['240', '360', '480', '720', '1080']"
                     @input="(value) => $store.commit('video/SET_VIDEO_RESOLUTION', { index, value })"
                   ></v-select>
                 </v-flex>
+                <v-flex sm2 class="px-1">
+                  <v-btn
+                    @click="deleteVideoUrl(index)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </v-flex>
               </v-row>
             </v-flex>
           </v-row>
         </v-form>
       </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-btn
+          @click="sendForm"
+        >
+          Сохранить
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </section>
 </template>
@@ -146,24 +169,25 @@ import { mapState } from 'vuex'
 
 export default {
   async asyncData({ route, store }) {
+    await store.dispatch('category/fetchCategories', {})
+    await store.dispatch('star/fetchStars', {})
+
     if (route.params.item !== '0') {
       const videoResponse = await store.dispatch('video/fetchVideo', route.params.item)
-      const categoryList = videoResponse.data.VideoToCategories.map((category) => {
+      const currentCategories = videoResponse.data.VideoToCategories.map((category) => {
         return {
           id: category.id,
           ...category.Category
         }
       })
-      store.commit('category/SET_CATEGORIES', categoryList)
-      const currentCategories = categoryList.map(category => category.id)
-      const starList = videoResponse.data.VideoToStars.map((star) => {
+      store.commit('category/ADD_CATEGORIES', currentCategories)
+      const currentStars = videoResponse.data.VideoToStars.map((star) => {
         return {
           id: star.id,
           ...star.Star
         }
       })
-      store.commit('star/SET_STARS', starList)
-      const currentStars = starList.map(star => star.id)
+      store.commit('star/ADD_STARS', currentStars)
 
       return {
         ...videoResponse.data,
@@ -171,18 +195,14 @@ export default {
         currentStars
       }
     } else {
-      await store.dispatch('category/fetchCategories', {
-        itemCount: 9,
-        pageCount: 0
-      })
-      await store.dispatch('star/fetchStars', {})
-
       return {
         name: '',
         originalUrl: '',
         description: '',
         currentCategories: [],
-        currentStars: []
+        currentStars: [],
+        VideoPhotos: [],
+        VideoFiles: []
       }
     }
   },
@@ -202,6 +222,12 @@ export default {
     }),
     isEdit() {
       return this.$route.params.item !== '0'
+    },
+    getCategoryList() {
+      return [...this.categories, ...this.currentCategories]
+    },
+    getStarList() {
+      return [...this.stars, ...this.currentStars]
     }
   },
   watch: {
@@ -243,6 +269,9 @@ export default {
     deleteImage(index) {
       this.$store.commit('video/DELETE_IMAGE', index)
     },
+    deleteVideoUrl(index) {
+      this.$store.commit('video/DELETE_VIDEO_URL', index)
+    },
     addVideo() {
       this.$store.commit('video/ADD_VIDEO')
     },
@@ -261,6 +290,37 @@ export default {
         } catch (error) {
           this.$store.commit('video/SET_VIDEO_URL', { index, value: '' })
         }
+      }
+    },
+    async sendForm() {
+      const payload = {
+        id: this.id,
+        name: this.name,
+        originalUrl: this.originalUrl,
+        description: this.description,
+        photos: this.video.VideoPhotos,
+        categories: this.currentCategories.map((category) => {
+          return {
+            categoryId: category.id
+          }
+        }),
+        stars: this.currentStars.map((star) => {
+          return {
+            starId: star.id
+          }
+        }),
+        urls: this.video.VideoFiles
+      }
+
+      try {
+        if (this.isEdit) {
+          await this.$store.dispatch('video/updateVideo', payload)
+        } else {
+          await this.$store.dispatch('video/createVideo', payload)
+        }
+        this.$router.push({ name: 'admin-video-list' })
+      } catch (error) {
+        console.error(error)
       }
     }
   }

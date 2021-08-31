@@ -7,5 +7,8 @@ export default {
   },
   SET_CATEGORY(state, data) {
     state.category = data
+  },
+  ADD_CATEGORIES(state, data) {
+    state.categories = [...state.categories, ...data]
   }
 }

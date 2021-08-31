@@ -1,6 +1,12 @@
 /* eslint-disable */
 <template>
   <section class="admin-video-list">
+    <v-row class="my-2 mx-0">
+      <v-spacer></v-spacer>
+      <v-btn
+        @click="$router.push({ name: 'admin-video-item', params: { item: '0' } })"
+      >Создать</v-btn>
+    </v-row>
     <v-data-table
       :headers="headers"
       :items="videos"
@@ -14,7 +20,9 @@
         >
           mdi-pencil
         </v-icon>
-        <v-icon>mdi-delete</v-icon>
+        <v-icon
+          @click="deleteVideo(item.id)"
+        >mdi-delete</v-icon>
       </template>
     </v-data-table>
   </section>
@@ -61,6 +69,19 @@ export default {
     ...mapState({
       videos: state => state.video.videos,
     })
+  },
+  methods: {
+    async deleteVideo(id) {
+      try {
+        await this.$store.dispatch('video/deleteVideo', id)
+        await this.$store.dispatch('video/fetchVideos', {
+          itemCount: 9,
+          pageCount: 0
+        })
+      } catch (error) {
+        
+      }
+    }
   }
 }
 </script>

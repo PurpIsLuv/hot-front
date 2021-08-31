@@ -33,5 +33,27 @@ export default {
       .catch((err) => {
         return err
       })
+  },
+  updateVideo(ctx, payload) {
+    return this.$http({
+      method: 'put',
+      url: 'api/video',
+      data: payload
+    })
+  },
+  createVideo(ctx, payload) {
+    return this.$http({
+      method: 'post',
+      url: 'api/video',
+      data: payload
+    })
+  },
+  deleteVideo(ctx, id) {
+    console.log(id)
+    return this.$http({
+      method: 'delete',
+      url: 'api/video',
+      data: { id }
+    })
   }
 }
