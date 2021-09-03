@@ -40,8 +40,8 @@
             class="white--text align-end"
             width="175"
             height="260"
-            :src="$getImage(star.src) || 'https://via.placeholder.com/300'"
             :alt="star.name"
+            :src="$getImage(star.src)"
           >
             <v-card-title class="text--shadow">{{ star.name }}</v-card-title>
           </v-img>
@@ -62,7 +62,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Category',
+  name: 'Star',
   data() {
     return {
       letter: '',
