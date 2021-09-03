@@ -24,6 +24,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'desciption', name: 'description', content: 'Sexus.space full hd porno' },
       { hid: 'keywords', name: 'keywords', content: 'porno,xxx,sexus,porn,porno video,porno online,hd,full hd,free porno' },
+      { name: 'yandex-verification', content: '19505f30c1417e7d' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/icon.ico' },
@@ -36,7 +37,8 @@ export default {
   env: {
     TARGET_HOST: process.env.TARGET_HOST,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
-    GOOGLE_ID: process.env.GOOGLE_ID
+    GOOGLE_ID: process.env.GOOGLE_ID,
+    YANDEX_ID: process.env.YANDEX_ID
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -71,7 +73,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
-    '@nuxtjs/robots'
+    '@nuxtjs/robots',
+    '@nuxtjs/yandex-metrika'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -100,6 +103,15 @@ export default {
 
   robots: {
     UserAgent: '*'
+  },
+
+  yandexMetrika: {
+    id: process.env.YANDEX_ID,
+    webvisor: true,
+    // clickmap:true,
+    useCDN: true,
+    // trackLinks:true,
+    // accurateTrackBounce:true,
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
