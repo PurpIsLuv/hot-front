@@ -6,7 +6,7 @@
   >
     <nuxt-link
       class="prn-video__wrapper"
-      :to="{ name: 'video-id', params: { id: item.id } }"
+      :to="{ name: 'video-id', params: { id: item.Video.id } }"
       target="_blank"
     >
       <swiper
@@ -15,7 +15,7 @@
         :options="swiperOption"
       >
         <swiper-slide
-          v-for="photo in item.VideoPhotos"
+          v-for="photo in item.Video.VideoPhotos"
           :key="photo.id"
         >
           <div
@@ -29,7 +29,7 @@
         <div ref="pagination" slot="pagination" class="swiper-pagination"></div>
       </swiper>
       <span class="text-body-2 link--default">
-        {{ item.name }}
+        {{ item.Video.name }}
       </span>
     </nuxt-link >
   </div>

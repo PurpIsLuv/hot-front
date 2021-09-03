@@ -7,6 +7,7 @@ export default {
     })
       .then((response) => {
         if (response.data.success) {
+          console.log(response.data)
           commit('SET_VIDEOS', response.data.result.rows)
           commit('SET_LENGTH', response.data.result.count)
           return response
