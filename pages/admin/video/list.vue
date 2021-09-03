@@ -16,12 +16,12 @@
         #[`item.actions`]=" { item }"
       >
         <v-icon
-          @click="$router.push({ name: 'admin-video-item', params: { item: item.id } })"
+          @click="$router.push({ name: 'admin-video-item', params: { item: item.Video.id } })"
         >
           mdi-pencil
         </v-icon>
         <v-icon
-          @click="deleteVideo(item.id)"
+          @click="deleteVideo(item.Video.id)"
         >mdi-delete</v-icon>
       </template>
     </v-data-table>
@@ -38,7 +38,7 @@ export default {
         {
           text: 'Название',
           sortable: false,
-          value: 'name',
+          value: 'Video.name',
         },
         {
           text: 'Действия',
