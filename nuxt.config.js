@@ -63,6 +63,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@/modules/generator'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -78,8 +79,23 @@ export default {
     baseURL: process.env.TARGET_HOST
   },
 
+  // sitemap: {
+  //   hostname: process.env.TARGET_HOST,
+  //   routes: [
+  //     '/category/:slug',
+  //     'star/:id',
+  //     'video/:id'
+  //   ]
+  // },
+
   sitemap: {
-    hostname: process.env.TARGET_HOST
+    hostname: process.env.TARGET_HOST,
+    gzip: true,
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date()
+    }
   },
 
   robots: {

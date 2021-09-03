@@ -31,6 +31,16 @@ export const state = () => ({
       icon: 'mdi-view-list',
       title: 'Admin-Video',
       to: '/admin/video/list'
+    },
+    {
+      icon: 'mdi-view-list',
+      title: 'Admin-Category',
+      to: '/admin/category/list'
+    },
+    {
+      icon: 'mdi-view-list',
+      title: 'Admin-Star',
+      to: '/admin/star/list'
     }
   ]
 })
