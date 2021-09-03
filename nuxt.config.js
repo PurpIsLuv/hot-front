@@ -102,7 +102,8 @@ export default {
   },
 
   robots: {
-    UserAgent: '*'
+    UserAgent: '*',
+    Disallow: '/admin'
   },
 
   yandexMetrika: {
