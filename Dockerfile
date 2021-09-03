@@ -39,6 +39,8 @@ RUN npm install
 # since it builds the server as well
 RUN npm run build
 
+RUN npm run generate
+
 # expose 5000 on container
 EXPOSE 3000
 
