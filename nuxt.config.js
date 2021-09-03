@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 import path from 'path'
 import fs from 'fs'
+const axios = require('axios')
 
 export default {
   target: 'server',
@@ -82,22 +83,21 @@ export default {
     baseURL: process.env.TARGET_HOST
   },
 
-  // sitemap: {
-  //   hostname: process.env.TARGET_HOST,
-  //   routes: [
-  //     '/category/:slug',
-  //     'star/:id',
-  //     'video/:id'
-  //   ]
-  // },
+  sitemap: async () => {
+    const response = await axios.get(process.env.TARGET_HOST + '/api/category/slug/all')
 
-  sitemap: {
-    hostname: process.env.TARGET_HOST,
-    gzip: true,
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date()
+    return {
+      hostname: process.env.TARGET_HOST,
+      gzip: true,
+      defaults: {
+        changefreq: 'daily',
+        priority: 1,
+        lastmod: new Date()
+      },
+      exclude: [
+        '/admin/**'
+      ],
+      routes: response.data.slugArray.map(slug => '/category/' + slug)
     }
   },
 
