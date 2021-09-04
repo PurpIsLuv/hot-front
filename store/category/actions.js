@@ -33,5 +33,12 @@ export default {
       .catch((err) => {
         return err
       })
-  } 
+  },
+  updateStat(ctx, ids) {
+    return this.$http({
+      url: 'api/category/stat',
+      method: 'post',
+      data: { ids }
+    })
+  }
 }

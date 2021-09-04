@@ -81,6 +81,9 @@ export default {
         pageCount: v - 1
       })
     }
+  },
+  mounted() {
+    this.$store.dispatch('star/updateStat', [this.star.id])
   }
 }
 </script>

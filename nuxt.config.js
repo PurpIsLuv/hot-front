@@ -84,7 +84,8 @@ export default {
   },
 
   sitemap: async () => {
-    const response = await axios.get(process.env.TARGET_HOST + '/api/category/slug/all')
+    const categoryResponse = await axios.get(process.env.TARGET_HOST + '/api/category/slug/all')
+    const starResponse = await axios.get(process.env.TARGET_HOST + '/api/star/all')
 
     return {
       hostname: process.env.TARGET_HOST,
@@ -95,9 +96,13 @@ export default {
         lastmod: new Date()
       },
       exclude: [
-        '/admin/**'
+        '/admin/**',
+        '/admin'
       ],
-      routes: response.data.slugArray.map(slug => '/category/' + slug)
+      routes: [
+        ...starResponse.data.allStarsResult.map(star => '/video/' + star.id),
+        ...categoryResponse.data.slugArray.map(slug => '/category/' + slug)
+      ]
     }
   },
 

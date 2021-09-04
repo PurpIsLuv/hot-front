@@ -82,6 +82,9 @@ export default {
         pageCount: v - 1
       })
     }
+  },
+  mounted() {
+    this.$store.dispatch('category/updateStat', [this.category.id])
   }
 }
 </script>
