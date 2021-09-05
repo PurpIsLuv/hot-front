@@ -22,6 +22,7 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-core-video-player": "^0.2.0",
     "vue-gtag": "^1.16.1",
+    "vuedraggable": "^2.24.3",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {

@@ -1,7 +1,14 @@
 <template>
   <!-- Секция категорий -->
-  <section v-if="categories && categories.length">
-    <h4 class="text-h4 mx-2">Categories</h4>
+  <section
+    v-if="categories && categories.length"
+    ref="categorySection"
+  >
+    <h4 class="text-h4 mx-2">
+      <nuxt-link to="/category">
+        Categories
+      </nuxt-link>
+    </h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
         v-for="category in categories"
@@ -69,6 +76,12 @@ export default {
         itemCount: this.itemCount,
         pageCount: v - 1
       })
+        .then(() => {
+          this.$refs.categorySection.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'nearest'
+          })
+        })
     }
   }
 }

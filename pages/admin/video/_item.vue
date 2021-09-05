@@ -79,32 +79,40 @@
               v-if="video.VideoPhotos"
               xs12
               pa-2
+              class="video-thumbnails"
             >
-              <v-card
-                v-for="(image, index) in video.VideoPhotos"
-                :key="index"
-                elevation="0"
+              <draggable
+                :value="video.VideoPhotos"
+                @input="(v) => $store.commit('video/ADD_IMAGES', v)"
               >
-                <v-row class="my-2 mx-0">
-                  <v-flex sm6>
-                    <v-img
-                      :src="$getImage(image.url)"
-                      height="200"
-                    ></v-img>
-                  </v-flex>
-                  <v-flex
-                    sm6
-                    class="d-flex align-center justify-center"
-                  >
+                <v-card
+                  v-for="(image, index) in video.VideoPhotos"
+                  :key="index"
+                  elevation="0"
+                  class="video-thumbnails__item"
+                >
+                  <v-row class="my-2 mx-0">
+                    <v-flex
+                      sm12
+                      class="d-flex align-center justify-center"
+                    >
+                      <div>
+                        <v-img
+                          :src="$getImage(image.url)"
+                          width="500"
+                        ></v-img>
+                      </div>
+                    </v-flex>
                     <v-btn
                       small
+                      class="thumbnail__delete"
                       @click="deleteImage(index)"
                     >
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
-                  </v-flex>
-                </v-row>
-              </v-card>
+                  </v-row>
+                </v-card>
+              </draggable>
             </v-flex>
             <v-flex xs12 pa-2>
               <v-btn
@@ -166,8 +174,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import draggable from 'vuedraggable'
 
 export default {
+  components: {
+    draggable
+  },
   async asyncData({ route, store }) {
     await store.dispatch('category/fetchCategories', {})
     await store.dispatch('star/fetchStars', {})
@@ -218,7 +230,7 @@ export default {
     ...mapState({
       video: state => state.video.video,
       stars: state => state.star.stars,
-      categories: state => state.category.categories
+      categories: state => state.category.categories,
     }),
     isEdit() {
       return this.$route.params.item !== '0'
@@ -326,3 +338,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.video-thumbnails {
+  &__item {
+    position: relative;
+  }
+}
+.thumbnail__delete {
+  position: absolute;
+  right: 0px;
+}
+</style>

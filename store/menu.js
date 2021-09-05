@@ -6,6 +6,11 @@ export const state = () => ({
       to: '/'
     },
     {
+      icon: 'mdi-video',
+      title: 'Video',
+      to: '/video'
+    },
+    {
       icon: 'mdi-view-list',
       title: 'Categories',
       to: '/category'

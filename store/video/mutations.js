@@ -8,6 +8,9 @@ export default {
   SET_VIDEO(state, video) {
     state.video = video
   },
+  ADD_IMAGES(state, images) {
+    state.video.VideoPhotos = images
+  },
   ADD_IMAGE(state, image) {
     state.video.VideoPhotos.push(image)
   },

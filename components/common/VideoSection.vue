@@ -1,6 +1,9 @@
 <template>
   <!-- Секция видео -->
-  <section v-if="videos && videos.length">
+  <section
+    v-if="videos && videos.length"
+    ref="videoSection"
+  >
     <h4 class="text-h4 mx-2">New porno</h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
@@ -58,6 +61,12 @@ export default {
         itemCount: this.itemCount,
         pageCount: v - 1
       })
+        .then(() => {
+          this.$refs.videoSection.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'nearest'
+          })
+        })
     }
   }
 }

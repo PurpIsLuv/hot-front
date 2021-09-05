@@ -54,5 +54,12 @@ export default {
       url: 'api/video',
       data: { id }
     })
+  },
+  updateStat(ctx, id) {
+    return this.$http({
+      method: 'post',
+      url: 'api/video/stat',
+      data: { id }
+    })
   }
 }

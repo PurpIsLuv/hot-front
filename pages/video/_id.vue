@@ -48,31 +48,6 @@
         >
           {{ star.Star.name }}
         </v-chip>
-        <!-- <v-row wrap class="ma-0">
-          <v-flex
-            v-for="star in video.VideoToStars"
-            :key="star.id"
-            my-2
-            xs6
-            sm4
-            lg3
-            xl2
-          >
-            <v-card class="mr-2" :to="{ name: 'star-id', params: { id: star.id } }" ripple>
-              <v-card-title class="text--shadow">
-                {{ star.Star.name }}
-                <v-spacer></v-spacer>
-                <v-avatar class="mx-0">
-                  <v-img
-                    :src="$getImage(star.Star.src) || 'https://via.placeholder.com/400'"
-                    :alt="star.Star.name || video.name || ''"
-                  ></v-img>
-                </v-avatar>
-              </v-card-title>
-              <v-card-subtitle>Age: {{ star.Star.age }}</v-card-subtitle>
-            </v-card>
-          </v-flex>
-        </v-row> -->
       </div>
     </section>
   </section>
@@ -112,6 +87,11 @@ export default {
     getVideo() {
       return this.video.VideoFiles[0].url
     }
+  },
+  mounted() {
+    this.$store.dispatch('video/updateStat', this.video.id)
+    this.$store.dispatch('star/updateStat', this.video.VideoToStars.map(star => star.Star.id))
+    this.$store.dispatch('category/updateStat', this.video.VideoToCategories.map(category => category.Category.id))
   }
 }
 </script>

@@ -1,6 +1,9 @@
 <template>
   <!-- Секция звезд -->
-  <section v-if="stars && stars.length">
+  <section
+    v-if="stars && stars.length"
+    ref="starSection"
+  >
     <h4 class="text-h4 mx-2 mt-2">Pornstars</h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
@@ -70,6 +73,12 @@ export default {
         itemCount: this.itemCount,
         pageCount: v - 1
       })
+        .then(() => {
+          this.$refs.starSection.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'nearest'
+          })
+        })
     }
   }
 }
