@@ -32,6 +32,9 @@ export default {
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', crossorigin: true, href: 'https://fonts.gstatic.com' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap' }
+    ],
+    script: [
+      { src: '//d.smopy.com/d/?resource=pubJS', async: true }
     ]
   },
 
