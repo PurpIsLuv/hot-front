@@ -101,6 +101,7 @@
                       <div>
                         <v-img
                           :src="$getImage(image.url)"
+                          :lazy-src="$getImage(image.url)"
                           width="500"
                         ></v-img>
                       </div>

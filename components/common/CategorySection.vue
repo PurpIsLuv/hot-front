@@ -30,6 +30,7 @@
             height="200px"
             :src="$getImage(category.src)"
             :alt="category.name"
+            :lazy-src="$getImage(category.src)"
           >
             <v-card-title class="text--shadow">{{ category.name }}</v-card-title>
           </v-img>
