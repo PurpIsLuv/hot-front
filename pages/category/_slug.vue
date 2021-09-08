@@ -1,5 +1,10 @@
 <template>
   <div class="page--category">
+    <v-breadcrumbs
+      class="pa-2"
+      divider="-"
+      :items="getBreadcrumbs"
+    ></v-breadcrumbs>
     <h4 class="text-h4 mx-2">New porno: {{ category.name }}</h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
@@ -73,6 +78,19 @@ export default {
     }),
     getVideosLength() {
       return Math.ceil(this.videoLength / 30)
+    },
+    getBreadcrumbs() {
+      return [
+        {
+          text: 'Categories',
+          disabled: false,
+          href: '/category'
+        },
+        {
+          text: this.category.name,
+          disabled: true
+        }
+      ]
     }
   },
   watch: {

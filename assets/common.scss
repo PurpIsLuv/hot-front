@@ -25,3 +25,11 @@ a {
 .text--shadow {
   text-shadow: 1px 1px 5px black;
 }
+
+.v-breadcrumbs__item {
+  color: $color--primary !important;
+}
+
+.v-breadcrumbs__item.v-breadcrumbs__item--disabled {
+  color: #fff !important;
+}

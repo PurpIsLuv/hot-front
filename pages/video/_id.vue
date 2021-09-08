@@ -1,5 +1,10 @@
 <template>
   <section class="page--video">
+    <v-breadcrumbs
+      class="pa-2"
+      divider="-"
+      :items="getBreadcrumbs"
+    ></v-breadcrumbs>
     <client-only placeholder="Loading...">
       <section class="video__wrapper">
         <vue-core-video-player
@@ -86,6 +91,19 @@ export default {
     }),
     getVideo() {
       return this.video.VideoFiles[0].url
+    },
+    getBreadcrumbs() {
+      return [
+        {
+          text: 'Video',
+          disabled: false,
+          href: '/video'
+        },
+        {
+          text: this.video.name,
+          disabled: true
+        }
+      ]
     }
   },
   mounted() {

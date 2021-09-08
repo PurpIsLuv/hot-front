@@ -1,5 +1,10 @@
 <template>
   <section class="page--star">
+    <v-breadcrumbs
+      class="pa-2"
+      divider="-"
+      :items="getBreadcrumbs"
+    ></v-breadcrumbs>
     <h4 class="text-h4 mx-2">Video with {{ star.name }}</h4>
     <v-row wrap class="my-2 mx-0">
       <v-flex
@@ -72,6 +77,19 @@ export default {
     }),
     getVideosLength() {
       return Math.ceil(this.videoLength / 30)
+    },
+    getBreadcrumbs() {
+      return [
+        {
+          text: 'Stars',
+          disabled: false,
+          href: '/star'
+        },
+        {
+          text: this.star.name,
+          disabled: true
+        }
+      ]
     }
   },
   watch: {

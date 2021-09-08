@@ -57,6 +57,15 @@
               ></v-textarea>
             </v-flex>
             <v-flex xs12 pa-2>
+              <input
+                ref="imageUpload"
+                type="file"
+                multiple
+                name="images"
+                accept="image/*"
+                class="d-none"
+                @change="onChange"
+              >
               <v-btn
                 color="default"
                 class="text-none"
@@ -67,13 +76,6 @@
                 <v-icon left>mdi-cloud-upload</v-icon>
                 <span>Загрузить фото</span>
               </v-btn>
-              <input
-                ref="imageUpload"
-                class="d-none"
-                type="file"
-                accept="image/*"
-                @change="onImageChanged"
-              >
             </v-flex>
             <v-flex
               v-if="video.VideoPhotos"
@@ -255,11 +257,11 @@ export default {
     }
   },
   methods: {
-    async onImageChanged(e) {
+    async onImageChanged(image) {
       this.imageLoading = true
-      const image = e.target.files[0]
       const formData = new FormData()
       formData.append('file', image)
+      let result
 
       try {
         const response = await this.$axios.post('api/upload', formData, {
@@ -271,12 +273,17 @@ export default {
         this.$store.commit('video/ADD_IMAGE', {
           url: response.data.url
         })
+
+        result = true
       } catch (error) {
         this.imageLoading = false
+        result = false
       }
 
       this.imageLoading = false
       formData.delete('file')
+
+      return result
     },
     deleteImage(index) {
       this.$store.commit('video/DELETE_IMAGE', index)
@@ -334,6 +341,11 @@ export default {
       } catch (error) {
         console.error(error)
       }
+    },
+    onChange(e) {
+      const images = [...e.target.files]
+      const promises = images.map(image => this.onImageChanged(image))
+      Promise.all(promises)
     }
   }
 }
