@@ -42,6 +42,7 @@
             height="260"
             :alt="star.name"
             :src="$getImage(star.src)"
+            :lazy-src="$getImage(star.src)"
           >
             <v-card-title class="text--shadow">{{ star.name }}</v-card-title>
           </v-img>

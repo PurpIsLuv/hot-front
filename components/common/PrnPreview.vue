@@ -22,7 +22,12 @@
             class="swiper-slide__wrapper"
           >
             <div class="swiper-slide__image">
-              <img :src="$getImage(photo.url)" alt="" height="100%">
+              <v-img
+                :src="$getImage(photo.url)"
+                :lazy-src="$getImage(photo.url)"
+                :alt="item.Video.name"
+                height="100%"
+              ></v-img>
             </div>
           </div>
         </swiper-slide>
