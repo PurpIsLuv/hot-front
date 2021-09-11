@@ -50,11 +50,11 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '@/plugins/vue-awesome-swiper.js', ssr: true },
-    { src: '@/plugins/vue-core-video-player.js', ssr: false },
     { src: '@/plugins/global-components.js', ssr: true },
     { src: '@/plugins/http.js', ssr: true },
     { src: '@/plugins/get-image.js', ssr: true },
-    { src: '@/plugins/gtag.js', ssr: false }
+    { src: '@/plugins/gtag.js', ssr: false },
+    { src: '@/plugins/vue-plyr.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

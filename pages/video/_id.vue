@@ -6,11 +6,23 @@
       :items="getBreadcrumbs"
     ></v-breadcrumbs>
     <client-only placeholder="Loading...">
-      <section class="video__wrapper">
-        <vue-core-video-player
-          :src="video.VideoFiles.map(({ resolution, url }) => { return { resolution, src: url } })"
-          :autoplay="false"
-        ></vue-core-video-player>
+      <section class="video__wrapper pb-2">
+        <vue-plyr>
+          <video
+            controls
+            crossorigin
+            playsinline
+            data-poster="poster.jpg"
+          >
+            <source
+              v-for="(item, index) in video.VideoFiles"
+              :key="index"
+              :size="item.resolution"
+              :src="$getImage(item.url)"
+              type="video/mp4"
+            />
+          </video>
+        </vue-plyr>
       </section>
     </client-only>
     <section>
@@ -89,9 +101,6 @@ export default {
     ...mapState({
       video: state => state.video.video
     }),
-    getVideo() {
-      return this.video.VideoFiles[0].url
-    },
     getBreadcrumbs() {
       return [
         {
