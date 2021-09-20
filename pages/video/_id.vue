@@ -18,7 +18,7 @@
               v-for="(item, index) in video.VideoFiles"
               :key="index"
               :size="item.resolution"
-              :src="$getImage(item.url)"
+              :src="$getImage('/api' + item.url)"
               type="video/mp4"
             />
           </video>
@@ -89,10 +89,10 @@ export default {
         {
           hid: 'keywords',
           name: 'keywords',
-          content: [
-            ...this.video.VideoToCategories.map(v => v.Category.slug),
-            ...this.video.VideoToStars.map(v => v.Star.name)
-          ]
+          // content: [
+          //   ...this.video.VideoToCategories.map(v => v.Category.slug),
+          //   ...this.video.VideoToStars.map(v => v.Star.name)
+          // ]
         }
       ]
     }
@@ -117,8 +117,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch('video/updateStat', this.video.id)
-    this.$store.dispatch('star/updateStat', this.video.VideoToStars.map(star => star.Star.id))
-    this.$store.dispatch('category/updateStat', this.video.VideoToCategories.map(category => category.Category.id))
+    this.$store.dispatch('star/updateStat', this.video.VideoToStars?.map(star => star.Star.id))
+    this.$store.dispatch('category/updateStat', this.video.VideoToCategories?.map(category => category.Category.id))
   }
 }
 </script>
