@@ -18,7 +18,7 @@
               v-for="(item, index) in video.VideoFiles"
               :key="index"
               :size="item.resolution"
-              :src="$getImage('/api' + item.url)"
+              :src="$getImage(item.url)"
               type="video/mp4"
             />
           </video>
