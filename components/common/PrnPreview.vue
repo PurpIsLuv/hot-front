@@ -66,7 +66,7 @@ export default {
   },
   mounted() {
     this.stopAutoplay()
-    this.initProgressBar()
+    // this.initProgressBar()
   },
   methods: {
     initProgressBar() {

@@ -34,7 +34,11 @@ a {
   color: #fff !important;
 }
 
-
 body {
   --plyr-color-main: #ff6060;
+}
+
+:root {
+  --swiper-pagination-color: #ff6060 !important;
+  --swiper-theme-color: #ff6060 !important;
 }
